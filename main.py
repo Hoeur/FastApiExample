@@ -1,7 +1,11 @@
 from typing import Union
 from fastapi import FastAPI
 from pydantic import BaseModel
+from dotenv import load_dotenv
+import os
+load_dotenv('./env', override=True)  # Force reload
 
+title = os.getenv("TEST","TEST")
 app = FastAPI()
 
 class User(BaseModel):
@@ -13,6 +17,7 @@ users = [{"name":"Hour","age":"23","position":"developer"},{"name":"Nich","age":
 
 @app.get("/")
 async def read_root():
+    print("haha",title)
     return {"Hello", "World"}
 
 @app.get("/users")
